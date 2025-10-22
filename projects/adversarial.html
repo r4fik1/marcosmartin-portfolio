@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<!--
+	Adversarial Image Attack Lab – Marcos Martín Gutiérrez
+	Based on "Future Imperfect" by HTML5 UP
+-->
+<html>
+  <head>
+    <title>Adversarial Image Attack Lab – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <style>
+      .diagram { max-width: 100%; margin: 1.5rem 0; }
+      pre.code-sample { background: #0b0b0b; color: #e6e6e6; padding: 1rem; overflow: auto; border-radius: 6px; }
+      details summary { cursor: pointer; font-weight: 600; margin: 0.5rem 0; }
+      .artifact-links a { display: block; margin-bottom: 0.4rem; }
+    </style>
+  </head>
+  <body class="single is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../index.html">Projects</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul>
+            <li class="menu"><a class="fa-bars" href="#menu">Menu</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Projects</h3><p>Explore AI + Cybersecurity Labs</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+            <li><a href="#"><h3>Certifications</h3><p>Professional Achievements</p></a></li>
+            <li><a href="#"><h3>Blog</h3><p>Thoughts on AI Security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Adversarial Image Attack Lab</h2>
+              <p>Generating and defending adversarial examples for image classifiers (FGSM, PGD, DeepFool).</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-01">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+
+          <span class="image featured"><img src="../images/adversarial.jpeg" alt="Adversarial Image Attack Lab" /></span>
+
+          <p>
+            This lab explores how small, targeted perturbations can cause convolutional neural networks to misclassify images.
+            We implement common attack algorithms (FGSM, PGD, DeepFool), evaluate model degradation, and test defenses such as adversarial training and input preprocessing.
+          </p>
+
+          <h3>Tech Stack</h3>
+          <ul>
+            <li>Python · PyTorch · torchvision</li>
+            <li>Streamlit · Jupyter Notebooks</li>
+            <li>Docker · GitHub Actions CI</li>
+          </ul>
+
+          <h3>Project Overview</h3>
+          <ul>
+            <li><strong>Offense:</strong> generate adversarial images with FGSM, PGD and DeepFool.</li>
+            <li><strong>Defense:</strong> apply adversarial training and preprocessing filters.</li>
+            <li><strong>Visualization:</strong> Streamlit UI comparing original vs adversarial outputs.</li>
+            <li><strong>Reproducibility:</strong> Dockerfile and CI workflow for portability.</li>
+          </ul>
+
+          <h3>Process & Flow</h3>
+          <p>High-level data flow inside the lab:</p>
+          <div class="diagram">
+            <img src="../images/adversarial_flow.svg" alt="Flow diagram" />
+          </div>
+
+          <h3>Example (FGSM attack – PyTorch)</h3>
+<pre class="code-sample"><code class="language-python">
+import torch
+
+def fgsm_attack(model, images, labels, epsilon):
+    images = images.clone().detach().requires_grad_(True)
+    outputs = model(images)
+    loss = torch.nn.functional.cross_entropy(outputs, labels)
+    model.zero_grad()
+    loss.backward()
+    perturbed = images + epsilon * images.grad.sign()
+    return torch.clamp(perturbed, 0, 1)
+</code></pre>
+
+          <h3>Repository Structure</h3>
+          <details open><summary><strong>attacks/</strong> – Adversarial methods</summary>
+            <ul>
+              <li><code>fgsm.py</code> – Fast Gradient Sign Method</li>
+              <li><code>pgd.py</code> – Projected Gradient Descent</li>
+              <li><code>deepfool.py</code> – Decision-boundary attack</li>
+            </ul>
+          </details>
+
+          <details><summary><strong>defenses/</strong> – Mitigation strategies</summary>
+            <ul>
+              <li><code>adversarial_training.py</code> – Train with adversarial examples</li>
+              <li><code>preprocessing.py</code> – JPEG compression and denoising</li>
+            </ul>
+          </details>
+
+          <details><summary><strong>app/</strong> – Streamlit Interface</summary>
+            <ul>
+              <li><code>app.py</code> – Main UI logic and controls</li>
+              <li><code>components/</code> – Reusable widgets and charts</li>
+            </ul>
+          </details>
+
+          <h3>Artifacts & Links</h3>
+          <div class="artifact-links">
+            <a href="https://github.com/r4fik1/AIC-adversarial-image-attack-lab" target="_blank" class="button">View Code on GitHub</a>
+            <a href="../index.html" class="button">← Back to Projects</a>
+          </div>
+
+          <footer>
+            <ul class="stats">
+              <li><a href="#">AI Security</a></li>
+              <li><a href="#" class="icon solid fa-heart">42</a></li>
+              <li><a href="#" class="icon solid fa-comment">12</a></li>
+            </ul>
+          </footer>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>AI & Cybersecurity Engineer · Swisscom</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h2>More Projects</h2>
+          <ul class="actions stacked">
+            <li><a href="llm-security.html" class="button fit">LLM Security Evaluator</a></li>
+            <li><a href="redteam.html" class="button fit">Adversarial AI Red Team</a></li>
+            <li><a href="../index.html" class="button fit">← Back to Projects</a></li>
+          </ul>
+        </section>
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+          </ul>
+          <p class="copyright">&copy; 2025 Marcos Martín Gutiérrez. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

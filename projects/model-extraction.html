@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<!--
+  Model Extraction & API Abuse – Marcos Martín
+  Based on "Future Imperfect" by HTML5 UP
+-->
+<html>
+  <head>
+    <title>Model Extraction & API Abuse – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <style>
+      pre code { background: #0b0b0b; color: #e6e6e6; padding: 1rem; border-radius: 6px; display: block; overflow-x: auto; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../index.html">Projects</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="#">Certifications</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Projects</h3><p>Explore AI + Cybersecurity Labs</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+            <li><a href="#"><h3>Certifications</h3><p>Professional Achievements</p></a></li>
+            <li><a href="#"><h3>Blog</h3><p>Thoughts on AI Security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Model Extraction & API Abuse</h2>
+              <p>Reconstruct ML models via API queries and test countermeasures like rate-limiting, noise, and watermarking.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-01">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+
+          <span class="image featured"><img src="../images/model-extraction.jpeg" alt="Model Extraction & API Abuse" /></span>
+
+          <p>
+            This project simulates <strong>model extraction attacks</strong> on ML-as-a-Service APIs, where adversaries query a deployed model and train a surrogate to approximate its decision boundary.
+            It measures the <strong>fidelity</strong> of the extracted model compared to the original and evaluates <strong>defensive strategies</strong> such as rate-limiting, randomized outputs, and watermark verification.
+          </p>
+
+          <h3>Tech Stack</h3>
+          <ul>
+            <li>Python · FastAPI · PyTorch · Scikit-learn</li>
+            <li>Black-box query-based extraction algorithms</li>
+            <li>Logging, anomaly-based detection, and noise injection defenses</li>
+          </ul>
+
+          <h3>Example (Basic Extraction Loop)</h3>
+<pre><code class="language-python">
+import requests
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+
+# Query black-box API
+X_train = np.random.rand(1000, 20)
+y_labels = [requests.post("https://target.api/predict", json=x.tolist()).json()["label"] for x in X_train]
+
+# Train local surrogate
+surrogate = DecisionTreeClassifier().fit(X_train, y_labels)
+print("Extracted surrogate model trained successfully!")
+</code></pre>
+
+          <h3>Project Highlights</h3>
+          <ul>
+            <li><strong>Attack Simulation:</strong> Perform black-box extractions with adaptive query selection.</li>
+            <li><strong>Defense Testing:</strong> Implement rate-limiting, response noise, and watermark-based model ownership checks.</li>
+            <li><strong>Evaluation:</strong> Compare accuracy, confidence divergence, and fidelity metrics between original and surrogate models.</li>
+            <li><strong>Visualization:</strong> Decision boundary plots and similarity heatmaps via Matplotlib and Streamlit.</li>
+          </ul>
+
+          <h3>Artifacts</h3>
+          <ul>
+            <li><a href="https://github.com/r4fik1/model-extraction" target="_blank">GitHub Repository – scripts & demo</a></li>
+          </ul>
+
+          <footer>
+            <ul class="stats">
+              <li><a href="#">Model Security</a></li>
+              <li><a href="#" class="icon solid fa-heart">18</a></li>
+              <li><a href="#" class="icon solid fa-comment">5</a></li>
+            </ul>
+          </footer>
+
+          <ul class="actions special">
+            <li><a href="https://github.com/r4fik1/model-extraction" class="button">View Code on GitHub</a></li>
+            <li><a href="../index.html" class="button">← Back to Projects</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>AI & Cybersecurity Engineer · Swisscom</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h2>More Projects</h2>
+          <ul class="actions stacked">
+            <li><a href="ml-malware.html" class="button fit">AI Malware Detection</a></li>
+            <li><a href="llm-security.html" class="button fit">LLM Security Evaluator</a></li>
+            <li><a href="adversarial.html" class="button fit">Adversarial Image Lab</a></li>
+            <li><a href="../index.html" class="button fit">← Back to Projects</a></li>
+          </ul>
+        </section>
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+          </ul>
+          <p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

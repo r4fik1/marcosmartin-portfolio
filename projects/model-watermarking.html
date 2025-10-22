@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<!--
+  Model Watermarking & IP Protection – Marcos Martín
+  Based on "Future Imperfect" by HTML5 UP
+-->
+<html>
+  <head>
+    <title>Model Watermarking & IP Protection – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <style>
+      pre code { background: #0b0b0b; color: #e6e6e6; padding: 1rem; border-radius: 6px; display: block; overflow-x: auto; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../index.html">Projects</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="#">Certifications</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Projects</h3><p>Explore AI + Cybersecurity Labs</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+            <li><a href="#"><h3>Certifications</h3><p>Professional Achievements</p></a></li>
+            <li><a href="#"><h3>Blog</h3><p>Thoughts on AI Security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Model Watermarking & IP Protection</h2>
+              <p>Embed and detect watermarks in ML models to prove ownership and detect model theft.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-01">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+
+          <span class="image featured"><img src="../images/model-watermarking.jpeg" alt="Model Watermarking & IP Protection" /></span>
+
+          <p>
+            This project focuses on <strong>intellectual property protection</strong> for machine learning models using <strong>watermarking techniques</strong>.
+            It implements and evaluates both <em>trigger-based</em> and <em>parameter-perturbation</em> watermarking methods to assert model ownership,
+            ensuring resilience against <strong>removal attacks</strong> and <strong>model extraction</strong>.
+          </p>
+
+          <h3>Tech Stack</h3>
+          <ul>
+            <li>PyTorch · TensorFlow</li>
+            <li>Watermark embedding and detection pipelines</li>
+            <li>Resilience and tampering evaluation framework</li>
+          </ul>
+
+          <h3>Example (Trigger-set Watermarking)</h3>
+<pre><code class="language-python">
+# Embed watermark by fine-tuning with trigger images
+trigger_data, trigger_labels = generate_trigger_set()
+model.train()
+for x, y in zip(trigger_data, trigger_labels):
+    out = model(x.unsqueeze(0))
+    loss = criterion(out, y.unsqueeze(0))
+    loss.backward()
+    optimizer.step()
+
+# Later: verify watermark by testing trigger accuracy
+verify_score = evaluate_watermark(model, trigger_data, trigger_labels)
+print(f"Watermark verification score: {verify_score:.2f}")
+</code></pre>
+
+          <h3>Project Highlights</h3>
+          <ul>
+            <li><strong>Trigger-based Watermarking:</strong> Embed synthetic patterns that cause known model outputs.</li>
+            <li><strong>Parameter Perturbation:</strong> Introduce imperceptible weight changes as ownership signatures.</li>
+            <li><strong>Robustness Evaluation:</strong> Test watermark survival after pruning, fine-tuning, and extraction attacks.</li>
+            <li><strong>Detection Pipeline:</strong> Statistical verification of ownership using watermark response metrics.</li>
+          </ul>
+
+          <h3>Artifacts</h3>
+          <ul>
+            <li><a href="https://github.com/r4fik1/model-watermarking" target="_blank">GitHub Repository – implementation & tests</a></li>
+          </ul>
+
+          <footer>
+            <ul class="stats">
+              <li><a href="#">Model Integrity</a></li>
+              <li><a href="#" class="icon solid fa-heart">21</a></li>
+              <li><a href="#" class="icon solid fa-comment">7</a></li>
+            </ul>
+          </footer>
+
+          <ul class="actions special">
+            <li><a href="https://github.com/r4fik1/model-watermarking" class="button">View Code on GitHub</a></li>
+            <li><a href="../index.html" class="button">← Back to Projects</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>AI & Cybersecurity Engineer · Swisscom</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h

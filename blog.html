@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Blog – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <style>
+      #main header.section-intro {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 1rem;
+        background: #f7f7f7;
+        border-radius: 0.5rem;
+      }
+      #main header.section-intro h2 {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      #main header.section-intro p {
+        max-width: 700px;
+        margin: 0.5rem auto 0;
+        color: #666;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li class="active"><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <!-- Menu (mobile) -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="index.html"><h3>Home</h3><p>Latest featured posts</p></a></li>
+            <li><a href="projects.html"><h3>Projects</h3><p>AI + Cybersecurity Labs</p></a></li>
+            <li><a href="blog.html"><h3>Blog</h3><p>Insights on AI Security</p></a></li>
+            <li><a href="about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+
+        <!-- Blog: FGSM Attack -->
+        <article class="post" data-visible="true">
+          <header>
+            <div class="title">
+              <h2><a href="blog/fgsm-attack.html">Understanding FGSM Attacks</a></h2>
+              <p>Explaining how Fast Gradient Sign Method generates adversarial examples.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-10">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+          <a href="blog/fgsm-attack.html" class="image featured"><img src="images/fgsm-attacks.jpeg" alt="" /></a>
+          <p>We break down how gradient-based attacks work, visualize perturbations and measure robustness.</p>
+          <ul class="actions special">
+            <li><a href="blog/fgsm-attack.html" class="button">Read More</a></li>
+          </ul>
+        </article>
+
+        <!-- Blog: Add more entries -->
+        <article class="post" data-visible="false">
+          <header>
+            <div class="title">
+              <h2><a href="blog/pgd-attack.html">Exploring Projected Gradient Descent (PGD)</a></h2>
+              <p>Deep dive into one of the most powerful iterative adversarial attack methods.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-20">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+          <a href="blog/pgd-attack.html" class="image featured"><img src="images/pgd.jpeg" alt="" /></a>
+          <p>Understand why PGD is considered the “universal first-order adversary” in adversarial ML research.</p>
+          <ul class="actions special">
+            <li><a href="blog/pgd-attack.html" class="button">Read More</a></li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="index.html" class="logo"><img src="images/plogo.png" alt="Marcos Martín" /></a>
+          <header>
+            <h2>AI + Cybersecurity Blog</h2>
+            <p>
+              This blog shares concise articles explaining core concepts in <strong>Adversarial Machine Learning</strong>,
+              <strong>AI Security</strong>, and <strong>Secure ML Engineering</strong>. Each post focuses on practical understanding
+              and visual explanations of attacks, defenses, and explainability techniques.
+            </p>
+        </section>
+
+
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+          </ul>
+          <p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Visibility script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("article[data-visible='false']").forEach(el => {
+          el.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

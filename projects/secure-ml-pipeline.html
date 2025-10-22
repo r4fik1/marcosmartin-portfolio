@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<!--
+  Secure ML Pipeline (MLOps Security) – Marcos Martín
+  Based on "Future Imperfect" by HTML5 UP
+-->
+<html>
+  <head>
+    <title>Secure ML Pipeline (MLOps Security) – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <style>
+      pre code { background: #0b0b0b; color: #e6e6e6; padding: 1rem; border-radius: 6px; display: block; overflow-x: auto; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../index.html">Projects</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="#">Certifications</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Projects</h3><p>Explore AI + Cybersecurity Labs</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+            <li><a href="#"><h3>Certifications</h3><p>Professional Achievements</p></a></li>
+            <li><a href="#"><h3>Blog</h3><p>Thoughts on AI Security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Secure ML Pipeline (MLOps Security)</h2>
+              <p>Implementing secure CI/CD workflows for ML models: validation, signing, secrets management, and provenance.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-01">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+
+          <span class="image featured"><img src="../images/secure-ml-pipeline.jpeg" alt="Secure ML Pipeline" /></span>
+
+          <p>
+            This project applies <strong>DevSecOps principles</strong> to machine learning lifecycles.
+            It ensures model integrity and reproducibility through secure build pipelines,
+            signed artifacts, and automated validation of datasets, models, and configurations.
+          </p>
+
+          <h3>Tech Stack</h3>
+          <ul>
+            <li>GitLab CI / GitHub Actions · Docker · DVC · MLflow</li>
+            <li>Hash-based model signing and reproducible environments</li>
+            <li>Secrets management with HashiCorp Vault</li>
+          </ul>
+
+          <h3>Example (Model Signing in CI)</h3>
+<pre><code class="language-bash">
+# sign model after successful training
+MODEL_HASH=$(sha256sum model.pkl | awk '{print $1}')
+echo "Model hash: $MODEL_HASH"
+gpg --output model.sig --sign model.pkl
+</code></pre>
+
+          <h3>Pipeline Highlights</h3>
+          <ul>
+            <li><strong>Data Validation:</strong> schema checks and anomaly detection at ingestion stage.</li>
+            <li><strong>Model Integrity:</strong> signing and hash verification for provenance.</li>
+            <li><strong>Secrets Management:</strong> secure storage via Vault and short-lived tokens.</li>
+            <li><strong>Reproducible Builds:</strong> version-pinned Docker images and MLflow tracking.</li>
+          </ul>
+
+          <h3>Artifacts</h3>
+          <ul>
+            <li><a href="https://github.com/r4fik1/secure-ml-pipeline" target="_blank">GitHub Repository – pipeline configs & docs</a></li>
+          </ul>
+
+          <footer>
+            <ul class="stats">
+              <li><a href="#">MLOps Security</a></li>
+              <li><a href="#" class="icon solid fa-heart">18</a></li>
+              <li><a href="#" class="icon solid fa-comment">5</a></li>
+            </ul>
+          </footer>
+
+          <ul class="actions special">
+            <li><a href="https://github.com/r4fik1/secure-ml-pipeline" class="button">View Code on GitHub</a></li>
+            <li><a href="../index.html" class="button">← Back to Projects</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>AI & Cybersecurity Engineer · Swisscom</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h2>More Projects</h2>
+          <ul class="actions stacked">
+            <li><a href="ci-cd-ml-security.html" class="button fit">ML CI/CD Security</a></li>
+            <li><a href="model-watermarking.html" class="button fit">Model Watermarking</a></li>
+            <li><a href="poisoning.html" class="button fit">Model Poisoning</a></li>
+            <li><a href="../index.html" class="button fit">← Back to Projects</a></li>
+          </ul>
+        </section>
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+          </ul>
+          <p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

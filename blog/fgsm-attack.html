@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<!--
+  Understanding FGSM Attacks – Blog by Marcos Martín
+  Based on "Future Imperfect" by HTML5 UP
+-->
+<html>
+  <head>
+    <title>Understanding FGSM Attacks – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <style>
+      .diagram { max-width: 100%; margin: 1.5rem 0; }
+      pre.code-sample { background: #0b0b0b; color: #e6e6e6; padding: 1rem; overflow: auto; border-radius: 6px; }
+      details summary { cursor: pointer; font-weight: 600; margin: 0.5rem 0; }
+      .artifact-links a { display: block; margin-bottom: 0.4rem; }
+    </style>
+  </head>
+  <body class="single is-preload">
+
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../projects.html">Projects</a></li>
+            <li class="active"><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Home</h3><p>Latest featured posts</p></a></li>
+            <li><a href="../projects.html"><h3>Projects</h3><p>AI + Cybersecurity Labs</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
+            <li><a href="../blog.html"><h3>Blog</h3><p>Insights on AI Security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Understanding FGSM Attacks</h2>
+              <p>How small pixel changes can fool neural networks — and what we can do about it.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2025-10-10">October 2025</time>
+              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+            </div>
+          </header>
+
+          <span class="image featured"><img src="../images/fgsm-attacks.jpeg" alt="FGSM Attack illustration" /></span>
+
+          <p>
+            The <strong>Fast Gradient Sign Method (FGSM)</strong> is one of the most well-known adversarial attacks
+            in the field of <em>Adversarial Machine Learning</em>. It works by introducing small, targeted perturbations 
+            to input images, crafted in the direction of the gradient that maximizes model loss. 
+            Despite their imperceptibility to the human eye, these perturbations can completely change model predictions.
+          </p>
+
+          <h3>🔍 The Concept</h3>
+          <p>
+            Given an image <code>x</code> and its true label <code>y</code>, we compute the gradient of the model loss 
+            with respect to the input pixels. FGSM then adjusts the image slightly in the direction that increases 
+            this loss:
+          </p>
+
+          <blockquote>
+            <code>x_adv = x + ε · sign(∇<sub>x</sub>J(θ, x, y))</code>
+          </blockquote>
+
+          <p>
+            Here, <code>ε</code> defines how strong the perturbation is. A small value (e.g. 0.01) can already make 
+            the model misclassify the image, showing how fragile deep networks can be.
+          </p>
+
+          <div class="diagram">
+            <img src="../images/fgsm_diagram.svg" alt="FGSM flow diagram" />
+          </div>
+
+          <h3>⚙️ Example Implementation (PyTorch)</h3>
+<pre class="code-sample"><code class="language-python">
+import torch
+
+def fgsm_attack(model, images, labels, epsilon):
+    images = images.clone().detach().requires_grad_(True)
+    outputs = model(images)
+    loss = torch.nn.functional.cross_entropy(outputs, labels)
+    model.zero_grad()
+    loss.backward()
+    perturbation = epsilon * images.grad.sign()
+    adv_images = torch.clamp(images + perturbation, 0, 1)
+    return adv_images
+</code></pre>
+
+          <p>
+            The method above applies the gradient sign to each pixel, 
+            slightly increasing or decreasing its value to maximize the model’s confusion.
+          </p>
+
+          <h3>🧠 Visual Effect</h3>
+          <p>
+            While the original and adversarial images may appear identical to humans, 
+            their internal feature representations in the neural network differ dramatically.
+          </p>
+          <div class="diagram">
+            <img src="../images/fgsm_comparison.png" alt="Original vs Adversarial image comparison" />
+          </div>
+
+          <h3>🛡️ Common Defenses</h3>
+          <ul>
+            <li><strong>Adversarial Training:</strong> retrain models using adversarial samples.</li>
+            <li><strong>Gradient Masking:</strong> obscure gradient information (often bypassable).</li>
+            <li><strong>Input Preprocessing:</strong> JPEG compression or random noise smoothing.</li>
+          </ul>
+
+          <h3>📚 Further Reading</h3>
+          <ul>
+            <li><a href="https://arxiv.org/abs/1412.6572" target="_blank">Explaining and Harnessing Adversarial Examples (Goodfellow et al., 2015)</a></li>
+            <li><a href="https://pytorch.org/tutorials/beginner/fgsm_tutorial.html" target="_blank">PyTorch FGSM Tutorial</a></li>
+          </ul>
+
+          <div class="artifact-links">
+            <a href="../blog.html" class="button">← Back to Blog</a>
+          </div>
+
+          <footer>
+            <ul class="stats">
+              <li><a href="#">AI Security</a></li>
+              <li><a href="#" class="icon solid fa-heart">27</a></li>
+              <li><a href="#" class="icon solid fa-comment">8</a></li>
+            </ul>
+          </footer>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+          <header>
+            <h2>AI Security Blog</h2>
+            <p>Understanding the offensive and defensive sides of Artificial Intelligence.</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h2>Related Posts</h2>
+          <ul class="actions stacked">
+            <li><a href="pgd-attack.html" class="button fit">PGD Attack</a></li>
+            <li><a href="xai-dashboard.html" class="button fit">Explainable AI Dashboard</a></li>
+            <li><a href="../blog.html" class="button fit">← Back to Blog</a></li>
+          </ul>
+        </section>
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+          </ul>
+          <p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

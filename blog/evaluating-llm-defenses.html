@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Measuring LLM defenses without a demo narrative – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="How the AI Security Gateway thesis evaluates threat and DLP layers: baseline vs protected, 17/17 PASS, parallel L3.5/L4." />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <style>
+      figure.shot { margin: 1.5rem 0; }
+      figure.shot img { width: 100%; border: 1px solid #ddd; }
+      figure.shot figcaption { font-size: 0.85em; color: #666; margin-top: 0.4rem; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../projects.html">Projects</a></li>
+            <li class="active"><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../cv.html">CV</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Home</h3><p>Featured work</p></a></li>
+            <li><a href="../projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+            <li><a href="../blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+            <li><a href="../cv.html"><h3>CV</h3><p>Downloadable résumé</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>You cannot ship an LLM proxy without evals</h2>
+              <p>Baseline versus protected profile, 17/17 PASS, and the limits of that number.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2026-07-24">July 2026</time>
+              <a href="../about.html" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+            </div>
+          </header>
+
+          <span class="image featured">
+            <img src="../images/gateway/evaluation-summary.png" alt="Evaluation summary: 17 of 17 cases passed on the protected profile" />
+          </span>
+
+          <p>
+            A dashboard that “blocks jailbreaks” is a demo. A gateway you would put in front of production traffic
+            needs a battery you can rerun: the same cases, with controls off and on, and a pass/fail that is not
+            a screenshot of a chat.
+          </p>
+          <p>
+            That is what the Streamlit evaluation tab in the
+            <a href="../projects/ai-security-gateway.html">AI Security Gateway</a> does. It replays a fixed suite
+            against the running proxy — legitimate prompts (anti-false-positive), threat layers L2–L4, inbound and
+            outbound DLP, and extraction-style cases — and writes a report: layer hit, HTTP status, latency, block reason.
+          </p>
+
+          <h3>What 17/17 actually means</h3>
+          <p>
+            On the protected profile the suite is <strong>17/17 PASS</strong>. That is not “the model is aligned”.
+            It is: for this catalog, the gateway did what the case specified (block, mask, or allow). The unprotected
+            baseline is there to show that the victim model would otherwise answer. Without that contrast you cannot
+            tell a control from a model that simply refused.
+          </p>
+
+          <figure class="shot">
+            <img src="../images/gateway/evaluation-detail-by-case.png" alt="Case-by-case comparison without vs with controls" />
+            <figcaption>Per case: layer, status and latency with controls off versus on. Inbound blocks short-circuit the LLM call.</figcaption>
+          </figure>
+
+          <h3>Latency is part of the security story</h3>
+          <p>
+            The expensive AI layers — LLM-as-judge (L3.5) and DistilBERT (L4) — run concurrently with
+            <code>asyncio.gather</code>. Added latency is the slower of the two, not the sum. Heuristic blocks
+            (length, regex) fail closed in milliseconds and never reach the provider. That shows up in the metrics
+            view: overall latency mixes fast denials with full LLM round-trips, so you have to split by outcome.
+          </p>
+
+          <figure class="shot">
+            <img src="../images/gateway/metrics-summary.png" alt="Operational metrics: requests, latency, defense rate" />
+            <figcaption>Operational counters on live traffic through the gateway, separate from the batch evaluation report.</figcaption>
+          </figure>
+
+          <h3>What the number does not prove</h3>
+          <p>
+            The catalog is finite and known to the author. Regex plus a classifier will not cover every jailbreak.
+            There is no enterprise authentication in front of the MVP, and SQLite is not a SIEM. The unit tests
+            (~175 pytest) protect regressions in parsing, DLP token round-trips and routing; they are not a red-team
+            engagement.
+          </p>
+          <p>
+            The useful claim is smaller and, I think, more honest: if you put LLM security on the wire, you can
+            measure it the same way you measure any other control — with a suite, a baseline, and a report you can
+            export. That is the same habit as SSDLC scanners in CI, applied to prompts.
+          </p>
+          <p>
+            Architecture note:
+            <a href="openai-compatible-gateway.html">why the client only changes a Base URL</a>.
+            Repository:
+            <a href="https://github.com/r4fik1/ai-security-gateway" target="_blank" rel="noopener">github.com/r4fik1/ai-security-gateway</a>.
+          </p>
+
+          <ul class="actions special">
+            <li><a href="openai-compatible-gateway.html" class="button">Why a Base URL</a></li>
+            <li><a href="../blog.html" class="button">← Blog</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>DevSecOps &amp; AI Security · Swisscom</p>
+          </header>
+        </section>
+        <section class="blurb">
+          <h2>Also</h2>
+          <ul class="actions stacked">
+            <li><a href="openai-compatible-gateway.html" class="button fit">Why a Base URL</a></li>
+            <li><a href="../projects/ai-security-gateway.html" class="button fit">Gateway project</a></li>
+            <li><a href="../blog.html" class="button fit">← Blog</a></li>
+          </ul>
+        </section>
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+          </ul>
+          <p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

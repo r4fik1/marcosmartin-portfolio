@@ -1,36 +1,16 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
     <title>Projects – Marcos Martín</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Selected work: AI Security Gateway, Vault key-ceremony CLI, security transparency data products." />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <style>
-      #main header.section-intro {
-        text-align: center;
-        margin-bottom: 3rem;
-        padding: 2rem 1rem;
-        background: #f7f7f7;
-        border-radius: 0.5rem;
-      }
-      #main header.section-intro h2 {
-        font-size: 1.8rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      #main header.section-intro p {
-        max-width: 700px;
-        margin: 0.5rem auto 0;
-        color: #666;
-        line-height: 1.6;
-      }
-    </style>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
   </head>
   <body class="is-preload">
     <div id="wrapper">
 
-      <!-- Header -->
       <header id="header">
         <h1><a href="index.html">Marcos Martín</a></h1>
         <nav class="links">
@@ -38,6 +18,7 @@
             <li class="active"><a href="projects.html">Projects</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="cv.html">CV</a></li>
           </ul>
         </nav>
         <nav class="main">
@@ -45,115 +26,112 @@
         </nav>
       </header>
 
-      <!-- Menu (mobile) -->
       <section id="menu">
         <section>
           <ul class="links">
-            <li><a href="index.html"><h3>Home</h3><p>Latest featured posts</p></a></li>
-            <li><a href="projects.html"><h3>Projects</h3><p>AI + Cybersecurity Labs</p></a></li>
-            <li><a href="about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
-            <li><a href="blog.html"><h3>Blog</h3><p>Thoughts on AI Security</p></a></li>
+            <li><a href="index.html"><h3>Home</h3><p>Featured work</p></a></li>
+            <li><a href="projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+            <li><a href="about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+            <li><a href="blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+            <li><a href="cv.html"><h3>CV</h3><p>Downloadable résumé</p></a></li>
           </ul>
         </section>
       </section>
 
-      <!-- Main -->
       <div id="main">
 
-        <!-- Project: Adversarial Image Attack Lab -->
-        <article class="post" data-visible="false">
+        <article class="post">
           <header>
             <div class="title">
-              <h2><a href="projects/adversarial.html">Adversarial Image Attack Lab</a></h2>
-              <p>Generate and defend adversarial images (FGSM, PGD, DeepFool) in CNNs with Streamlit demos and visualization tools.</p>
+              <h2><a href="projects/ai-security-gateway.html">AI Security Gateway</a></h2>
+              <p>OpenAI-compatible reverse proxy with inbound threat detection, reversible DLP, routing and evals.</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="2025-10-15">October 2025</time>
-              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+              <time class="published" datetime="2026-07-01">July 2026</time>
+              <a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
             </div>
           </header>
-          <a href="projects/adversarial.html" class="image featured"><img src="images/adversarial.jpeg" alt="" /></a>
-          <p>Learn how adversarial perturbations deceive neural networks and explore defense strategies.</p>
+          <a href="projects/ai-security-gateway.html" class="image featured">
+            <img src="images/gateway/evaluation-summary.png" alt="Gateway evaluation summary: pass/fail KPIs" />
+          </a>
+          <p>
+            MSc thesis (deposited, pending defense). FastAPI + LiteLLM + Streamlit. Evaluation <strong>17/17 PASS</strong>;
+            ~175 pytest. Public repo.
+          </p>
           <ul class="actions special">
-            <li><a href="projects/adversarial.html" class="button">Read More</a></li>
+            <li><a href="projects/ai-security-gateway.html" class="button">Read more</a></li>
           </ul>
         </article>
 
-        <!-- Project: LLM Security Evaluator -->
-        <article class="post" data-visible="false">
+        <article class="post">
           <header>
             <div class="title">
-              <h2><a href="projects/llm-security.html">LLM Security Evaluator</a></h2>
-              <p>Simulate prompt injection, data exfiltration, and jailbreaks on LLMs. Evaluate sanitization defenses.</p>
+              <h2><a href="projects/vault-key-ceremony.html">Vault Key Ceremony CLI</a></h2>
+              <p>Rekey and generate-root as a tested Go CLI with GPG/YubiKey human gates.</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="2025-10-10">October 2025</time>
-              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+              <time class="published" datetime="2026-03-01">2026</time>
+              <a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
             </div>
           </header>
-          <a href="projects/llm-security.html" class="image featured"><img src="images/llm-security.jpeg" alt="" /></a>
-          <p>Test how large language models react to adversarial inputs and implement guardrail mechanisms.</p>
+          <p>
+            Built for Swisscom Vault operations: one binary across macOS/Linux/Windows, health checks, coverage gate ~95%,
+            SSDLC in CI. Internal tooling.
+          </p>
           <ul class="actions special">
-            <li><a href="projects/llm-security.html" class="button">Read More</a></li>
+            <li><a href="projects/vault-key-ceremony.html" class="button">Read more</a></li>
           </ul>
         </article>
 
-        <!-- Project: Intrusion Detection -->
-        <article class="post" data-visible="false">
+        <article class="post">
           <header>
             <div class="title">
-              <h2><a href="projects/intrusion.html">AI-powered Intrusion Detection</a></h2>
-              <p>Detect anomalies in network traffic using supervised and unsupervised ML approaches.</p>
+              <h2><a href="projects/security-transparency.html">Security Transparency</a></h2>
+              <p>Scheduled security-metrics data product: training, assessments, vulnerability posture.</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="2025-10-05">October 2025</time>
-              <a href="#" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+              <time class="published" datetime="2025-12-01">2025–2026</time>
+              <a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
             </div>
           </header>
-          <a href="projects/intrusion.html" class="image featured"><img src="images/intrusion.jpeg" alt="" /></a>
-          <p>Compare Random Forest, XGBoost, and Autoencoders to identify network intrusions in real time.</p>
+          <p>
+            Python · pandas/Parquet · object storage · scheduled BI. Fail-closed publishes; cloud via OIDC.
+            Internal Swisscom product.
+          </p>
           <ul class="actions special">
-            <li><a href="projects/intrusion.html" class="button">Read More</a></li>
+            <li><a href="projects/security-transparency.html" class="button">Read more</a></li>
           </ul>
         </article>
+
       </div>
 
-      <!-- Sidebar -->
       <section id="sidebar">
         <section id="intro">
-          <a href="index.html" class="logo"><img src="images/logo.png" alt="Marcos Martín" /></a>
+          <a href="index.html" class="logo"><img src="images/me.jpeg" alt="Marcos Martín" /></a>
           <header>
-            <h2>AI + Cybersecurity Projects</h2>
-            <p>This section showcases practical experiments that blend <strong>Artificial Intelligence</strong> with <strong>Cybersecurity</strong>.  
-            Each project explores both <em>offensive</em> and <em>defensive</em> aspects of AI — from adversarial attacks and intrusion detection to explainability and secure pipelines.</p>
+            <h2>Selected work</h2>
+            <p>
+              Public thesis work and two internal Swisscom products described at a level that does not name
+              internal platforms. The FGSM lab note lives on the <a href="blog.html">blog</a>.
+            </p>
           </header>
         </section>
 
         <section id="footer">
           <ul class="icons">
-            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"></a></li>
-            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"></a></li>
-            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"></a></li>
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
           </ul>
-          <p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          <p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
         </section>
       </section>
     </div>
 
-    <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-
-    <!-- Visibility script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll("article[data-visible='false']").forEach(el => {
-          el.style.display = "none";
-        });
-      });
-    </script>
   </body>
 </html>

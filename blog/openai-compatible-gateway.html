@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Why an OpenAI-compatible security gateway – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="MSc thesis note: an OpenAI-compatible reverse proxy so LLM security sits on the Base URL, not in every client SDK." />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <style>
+      figure.shot { margin: 1.5rem 0; }
+      figure.shot img { width: 100%; border: 1px solid #ddd; }
+      figure.shot figcaption { font-size: 0.85em; color: #666; margin-top: 0.4rem; }
+      pre.code-sample { background: #0b0b0b; color: #e6e6e6; padding: 1rem; overflow: auto; border-radius: 6px; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../projects.html">Projects</a></li>
+            <li class="active"><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../cv.html">CV</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Home</h3><p>Featured work</p></a></li>
+            <li><a href="../projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+            <li><a href="../blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+            <li><a href="../cv.html"><h3>CV</h3><p>Downloadable résumé</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Why the client should only change a Base URL</h2>
+              <p>Design note from my MSc thesis: an OpenAI-compatible AI Security Gateway.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2026-07-15">July 2026</time>
+              <a href="../about.html" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+            </div>
+          </header>
+
+          <span class="image featured">
+            <img src="../images/gateway/information-architecture.png" alt="Request flow: client to gateway to LLM provider" />
+          </span>
+
+          <p>
+            Most LLM security demos live in the application: a wrapper around the SDK, a system prompt, a regex in front of
+            <code>chat.completions.create</code>. That does not survive a second client. The moment a notebook, an internal
+            chatbot and a batch job all talk to the same model, the control plane fragments.
+          </p>
+          <p>
+            The thesis constraint was the opposite: <strong>security as middleware</strong>, not as an SDK. If the gateway
+            speaks <code>POST /v1/chat/completions</code>, every existing OpenAI-compatible client can be pointed at a
+            new Base URL. No rewrite, no new library, no “please remember to call the sanitiser”.
+          </p>
+
+          <h3>What the proxy actually does</h3>
+          <p>
+            Traffic still ends at OpenAI, Anthropic, or a local Ollama model via LiteLLM. Before that, the request
+            walks a five-phase pipeline:
+          </p>
+          <ol>
+            <li><strong>Threat (inbound)</strong> — sanitisation, length limits, OWASP-style heuristics, then an optional LLM-as-judge in parallel with a local DistilBERT classifier.</li>
+            <li><strong>DLP (inbound)</strong> — bilingual NER and regex; PII is replaced with reversible tokens before it leaves the perimeter.</li>
+            <li><strong>Router</strong> — the requested model is dispatched unchanged from the client’s point of view.</li>
+            <li><strong>Outbound</strong> — tokens are restored in the assistant reply; leaked secrets and honeytokens can be redacted or blocked.</li>
+            <li><strong>Observability</strong> — latency by phase, block reason, estimated cost, written asynchronously.</li>
+          </ol>
+          <p>
+            Controls are toggled per request with headers. With no headers, the gateway is a transparent proxy — useful
+            for measuring the cost of each layer against a baseline.
+          </p>
+
+<pre class="code-sample"><code>from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:8000/v1",
+    api_key="not-used-by-the-gateway",
+)
+client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Summarise this invoice…"}],
+)
+</code></pre>
+
+          <p>
+            That is the whole integration. The application keeps its SDK. The security team keeps the pipeline.
+          </p>
+
+          <h3>Why this shape, not a plugin</h3>
+          <p>
+            A plugin is easy to skip. A reverse proxy is the same pattern as an API gateway in front of microservices:
+            authentication, DLP and routing are not optional if the only route to the model is through the proxy.
+            It is also how you test. You can run the same client against the unprotected upstream and against the
+            protected profile and compare outcomes — which is the subject of the
+            <a href="evaluating-llm-defenses.html">evaluation note</a>.
+          </p>
+          <p>
+            Honest limits of the MVP: there is no enterprise authentication in front of the gateway, SQLite is not a
+            SIEM, and regex plus a classifier will not catch every jailbreak. The claim is narrower — put the control
+            where the traffic already is, and measure it.
+          </p>
+          <p>
+            Project page and repository:
+            <a href="../projects/ai-security-gateway.html">AI Security Gateway</a> ·
+            <a href="https://github.com/r4fik1/ai-security-gateway" target="_blank" rel="noopener">github.com/r4fik1/ai-security-gateway</a>.
+          </p>
+
+          <ul class="actions special">
+            <li><a href="evaluating-llm-defenses.html" class="button">Next: measuring the pipeline</a></li>
+            <li><a href="../blog.html" class="button">← Blog</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>DevSecOps &amp; AI Security · Swisscom</p>
+          </header>
+        </section>
+        <section class="blurb">
+          <h2>Also</h2>
+          <ul class="actions stacked">
+            <li><a href="evaluating-llm-defenses.html" class="button fit">Measuring LLM defenses</a></li>
+            <li><a href="../projects/ai-security-gateway.html" class="button fit">Gateway project</a></li>
+            <li><a href="../blog.html" class="button fit">← Blog</a></li>
+          </ul>
+        </section>
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+          </ul>
+          <p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

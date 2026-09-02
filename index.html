@@ -4,19 +4,19 @@
 	Based on "Future Imperfect" by HTML5 UP
 	html5up.net | @ajlkn
 -->
-<html>
+<html lang="en">
 	<head>
-		<title>Marcos Martín – AI & Cybersecurity Engineer</title>
+		<title>Marcos Martín – DevSecOps & AI Security</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="DevSecOps and AI Security engineer at Swisscom. SSDLC at scale, HashiCorp Vault, security transparency, and an OpenAI-compatible AI Security Gateway. CAISP." />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+		<link rel="icon" type="image/png" href="assets/favicon.png" />
 	</head>
 
 	<body class="is-preload">
 		<div id="wrapper">
 
-			<!-- Header -->
 			<header id="header">
 				<h1><a href="index.html">Marcos Martín</a></h1>
 				<nav class="links">
@@ -24,6 +24,7 @@
 						<li><a href="projects.html">Projects</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="about.html">About</a></li>
+						<li><a href="cv.html">CV</a></li>
 					</ul>
 				</nav>
 				<nav class="main">
@@ -33,182 +34,174 @@
 				</nav>
 			</header>
 
-			<!-- Menu -->
 			<section id="menu">
 				<section>
 					<ul class="links">
-						<li><a href="projects.html"><h3>Projects</h3><p>Explore AI + Cybersecurity Labs</p></a></li>
-						<li><a href="about.html"><h3>About</h3><p>Profile & Experience</p></a></li>
-						<li><a href="blog.html"><h3>Blog</h3><p>Insights on AI Security</p></a></li>
+						<li><a href="index.html"><h3>Home</h3><p>Featured work</p></a></li>
+						<li><a href="projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+						<li><a href="about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+						<li><a href="blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+						<li><a href="cv.html"><h3>CV</h3><p>Downloadable résumé</p></a></li>
 					</ul>
 				</section>
 			</section>
 
-			<!-- Main -->
 			<div id="main">
 
-				<!-- Featured -->
-				<article class="post featured" data-visible="false">
+				<article class="post featured">
 					<header>
 						<div class="title">
-							<h2><a href="projects/adversarial.html">Adversarial Image Attack Lab</a></h2>
-							<p>Generate and defend adversarial images (FGSM, PGD, DeepFool) in CNNs with Streamlit demos and visualization tools.</p>
+							<h2><a href="projects/ai-security-gateway.html">AI Security Gateway</a></h2>
+							<p>OpenAI-compatible reverse proxy: inbound threat detection, reversible DLP, routing, and evals. MSc thesis deposited (pending defense).</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2025-10-20">October 20, 2025</time>
+							<time class="published" datetime="2026-07-01">July 2026</time>
 							<a href="about.html" class="author">
 								<span class="name">Marcos Martín</span>
 								<img src="images/me.jpeg" alt="Marcos Martín" />
 							</a>
 						</div>
 					</header>
-					<a href="projects/adversarial.html" class="image featured"><img src="images/adversarial.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/adversarial.html" class="button large">Read More</a></li></ul></footer>
-				</article>
-
-				<!-- New Blog Highlight -->
-				<article class="post" data-visible="true">
-					<header>
-						<div class="title">
-							<h2><a href="blog/fgsm-attack.html">Understanding FGSM Attacks</a></h2>
-							<p>Explaining how Fast Gradient Sign Method generates adversarial examples.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2025-10-10">October 2025</time>
-							<a href="about.html" class="author">
-								<span class="name">Marcos Martín</span>
-								<img src="images/me.jpeg" alt="Marcos Martín" />
-							</a>
-						</div>
-					</header>
-					<a href="blog/fgsm-attack.html" class="image featured">
-						<img src="images/fgsm-attacks.jpeg" alt="FGSM Attacks Visualization" />
+					<a href="projects/ai-security-gateway.html" class="image featured">
+						<img src="images/gateway/playground-security-config.png" alt="AI Security Gateway playground with per-request security controls" />
 					</a>
 					<p>
-						We break down how gradient-based attacks work, visualize perturbations, and measure model robustness against adversarial examples.
+						Drop-in middleware between apps and any LLM provider. Pipeline: sanitisation and OWASP-style filters,
+						LLM-as-judge in parallel with DistilBERT, bilingual DLP, then LiteLLM routing. Evaluation battery
+						<strong>17/17 PASS</strong>; ~175 pytest. Repo:
+						<a href="https://github.com/r4fik1/ai-security-gateway" target="_blank" rel="noopener">github.com/r4fik1/ai-security-gateway</a>.
 					</p>
 					<footer>
 						<ul class="actions">
-							<li><a href="blog/fgsm-attack.html" class="button">Read More</a></li>
+							<li><a href="projects/ai-security-gateway.html" class="button large">Read more</a></li>
 						</ul>
 					</footer>
 				</article>
 
-				<!-- Project List -->
-				<article class="post" data-visible="false">
+				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="projects/llm-security.html">LLM Security Evaluator</a></h2>
-							<p>Simulate prompt injection, data exfiltration, and jailbreaks on LLMs. Evaluate defenses with sanitization and guardrails.</p>
+							<h2><a href="blog/evaluating-llm-defenses.html">You cannot ship an LLM proxy without evals</a></h2>
+							<p>Thesis note: baseline versus protected profile, 17/17 PASS, and what that number does not prove.</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2025-10-18">October 18, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+							<time class="published" datetime="2026-07-24">July 2026</time>
+							<a href="about.html" class="author">
+								<span class="name">Marcos Martín</span>
+								<img src="images/me.jpeg" alt="Marcos Martín" />
+							</a>
 						</div>
 					</header>
-					<a href="projects/llm-security.html" class="image featured"><img src="images/llm-security.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/llm-security.html" class="button">Read More</a></li></ul></footer>
+					<a href="blog/evaluating-llm-defenses.html" class="image featured">
+						<img src="images/gateway/evaluation-summary.png" alt="Evaluation summary: 17 of 17 cases passed" />
+					</a>
+					<p>
+						A replayable suite — layer hit, HTTP status, latency — instead of a screenshot of a chat.
+					</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="blog/evaluating-llm-defenses.html" class="button">Read more</a></li>
+						</ul>
+					</footer>
 				</article>
 
-				<article class="post" data-visible="false">
+				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="projects/intrusion.html">AI-powered Intrusion Detection</a></h2>
-							<p>Detect anomalies in network traffic using ML and AI models. Compare Random Forest, XGBoost, and Autoencoders.</p>
+							<h2><a href="blog/openai-compatible-gateway.html">Why the client should only change a Base URL</a></h2>
+							<p>Security as middleware: an OpenAI-compatible reverse proxy for LLM traffic.</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2025-10-15">October 15, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+							<time class="published" datetime="2026-07-15">July 2026</time>
+							<a href="about.html" class="author">
+								<span class="name">Marcos Martín</span>
+								<img src="images/me.jpeg" alt="Marcos Martín" />
+							</a>
 						</div>
 					</header>
-					<a href="projects/intrusion.html" class="image featured"><img src="images/intrusion.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/intrusion.html" class="button">Read More</a></li></ul></footer>
+					<p>
+						If every client talks to the same Base URL, notebooks, chatbots and batch jobs share one pipeline.
+					</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="blog/openai-compatible-gateway.html" class="button">Read more</a></li>
+						</ul>
+					</footer>
 				</article>
 
-				<article class="post" data-visible="false">
+				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="projects/poisoning.html">ML Model Poisoning Simulation</a></h2>
-							<p>Inject malicious samples during model training and measure performance degradation under data poisoning attacks.</p>
+							<h2><a href="projects/vault-key-ceremony.html">Vault Key Ceremony CLI</a></h2>
+							<p>High-assurance rekey / generate-root as a tested Go product, with GPG and YubiKey human gates.</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2025-10-10">October 10, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+							<time class="published" datetime="2026-03-01">2026</time>
+							<a href="about.html" class="author">
+								<span class="name">Marcos Martín</span>
+								<img src="images/me.jpeg" alt="Marcos Martín" />
+							</a>
 						</div>
 					</header>
-					<a href="projects/poisoning.html" class="image featured"><img src="images/poisoning.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/poisoning.html" class="button">Read More</a></li></ul></footer>
+					<p>
+						Enterprise Vault operations that used to live in tribal shell scripts: one cross-platform binary,
+						health and token checks, coverage gate ~95%, SSDLC in CI. Internal Swisscom tooling — no public repo.
+					</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="projects/vault-key-ceremony.html" class="button">Read more</a></li>
+						</ul>
+					</footer>
 				</article>
 
-				<article class="post" data-visible="false">
+				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="projects/redteam.html">Adversarial AI Red Team Toolkit</a></h2>
-							<p>Framework for AI robustness testing — model fuzzing, prompt injection, and dataset integrity validation.</p>
+							<h2><a href="projects/security-transparency.html">Security Transparency</a></h2>
+							<p>From team-level metrics to a scheduled data product for leadership — without spreadsheet archaeology.</p>
 						</div>
 						<div class="meta">
-							<time class="published" datetime="2025-10-05">October 5, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
+							<time class="published" datetime="2025-12-01">2025–2026</time>
+							<a href="about.html" class="author">
+								<span class="name">Marcos Martín</span>
+								<img src="images/me.jpeg" alt="Marcos Martín" />
+							</a>
 						</div>
 					</header>
-					<a href="projects/redteam.html" class="image featured"><img src="images/redteam.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/redteam.html" class="button">Read More</a></li></ul></footer>
+					<p>
+						Python pipelines (Parquet, object storage, scheduled BI) covering training, assessments and vulnerability
+						posture. Fail-closed publishes; cloud access via short-lived OIDC, not long-lived keys.
+					</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="projects/security-transparency.html" class="button">Read more</a></li>
+						</ul>
+					</footer>
 				</article>
 
-				<article class="post" data-visible="false">
-					<header>
-						<div class="title">
-							<h2><a href="projects/xai-dashboard.html">Explainable AI Security Dashboard</a></h2>
-							<p>Interactive dashboard for explainability using SHAP & LIME to visualize model decision logic and feature influence.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2025-10-01">October 1, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
-						</div>
-					</header>
-					<a href="projects/xai-dashboard.html" class="image featured"><img src="images/xai-dashboard.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/xai-dashboard.html" class="button">Read More</a></li></ul></footer>
-				</article>
-
-				<!-- Example hidden post -->
-				<article class="post" data-visible="false">
-					<header>
-						<div class="title">
-							<h2><a href="projects/experimental.html">Experimental Project (Hidden)</a></h2>
-							<p>This entry is hidden and won’t appear on the homepage.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2025-09-30">September 30, 2025</time>
-							<a href="about.html" class="author"><span class="name">Marcos Martín</span><img src="images/me.jpeg" alt="" /></a>
-						</div>
-					</header>
-					<a href="projects/experimental.html" class="image featured"><img src="images/experimental.jpeg" alt="" /></a>
-					<footer><ul class="actions"><li><a href="projects/experimental.html" class="button">Read More</a></li></ul></footer>
-				</article>
-
-				<!-- Pagination -->
-				<ul class="actions pagination">
-					<li><a href="#" class="disabled button large previous">Previous</a></li>
-					<li><a href="#" class="button large next">Next</a></li>
-				</ul>
 			</div>
 
-			<!-- Sidebar -->
 			<section id="sidebar">
 				<section id="intro">
-					<a href="#" class="logo"><img src="images/me.jpeg" alt="" /></a>
+					<a href="about.html" class="logo"><img src="images/me.jpeg" alt="Marcos Martín" /></a>
 					<header>
 						<h2>Marcos Martín</h2>
-						<p>AI & Cybersecurity Engineer · Swisscom<br/>MSc in Cybersecurity · MSc in Artificial Intelligence</p>
+						<p>DevSecOps &amp; AI Security · Swisscom<br/>CAISP · MSc Cybersecurity · MSc AI (thesis deposited)</p>
 					</header>
 				</section>
 
 				<section class="blurb">
 					<h2>About</h2>
-					<p>I’m a <strong>Cybersecurity Engineer</strong> exploring how <strong>AI</strong> can make security systems smarter, more transparent, and resilient.<br/>
-						At <strong>Swisscom</strong>, I work on <strong>Vault</strong> and <strong>Security Transparency</strong>, developing tools and dashboards in <strong>Python</strong> and <strong>Streamlit</strong> that automate security metrics and bring visibility across the organization.</p>
-
-					<ul class="actions"><li><a href="about.html" class="button">Learn More</a></li></ul>
+					<p>
+						I turn security process into platforms. At <strong>Swisscom</strong> I run DevSecOps for
+						<strong>1000+ developers</strong> and high-assurance <strong>HashiCorp Vault</strong> operations,
+						and I ship security-transparency products so leadership sees posture without spreadsheet archaeology.
+						Thesis: an OpenAI-compatible <strong>AI Security Gateway</strong>.
+					</p>
+					<ul class="actions">
+						<li><a href="about.html" class="button">Learn more</a></li>
+						<li><a href="cv.html" class="button">CV</a></li>
+					</ul>
 				</section>
 
 				<section id="footer">
@@ -217,25 +210,15 @@
 						<li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 						<li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
-					<p class="copyright">&copy; 2025 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					<p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
 				</section>
 			</section>
 		</div>
 
-		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-
-		<!-- Visibility Control Script -->
-		<script>
-			document.querySelectorAll('article.post').forEach(article => {
-				if (article.dataset.visible === "false") {
-					article.style.display = "none";
-				}
-			});
-		</script>
 	</body>
 </html>

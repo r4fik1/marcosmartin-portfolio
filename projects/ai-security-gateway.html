@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<!--
+  AI Security Gateway – Marcos Martín
+  Based on "Future Imperfect" by HTML5 UP
+-->
+<html lang="en">
+  <head>
+    <title>AI Security Gateway – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="OpenAI-compatible AI Security Gateway: threat detection, reversible DLP, LiteLLM routing. MSc thesis. 17/17 eval PASS." />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <style>
+      figure.shot { margin: 1.5rem 0; }
+      figure.shot img { width: 100%; border: 1px solid #ddd; }
+      figure.shot figcaption { font-size: 0.85em; color: #666; margin-top: 0.4rem; }
+      table.alt { margin: 1.5rem 0; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li class="active"><a href="../projects.html">Projects</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../cv.html">CV</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Home</h3><p>Featured work</p></a></li>
+            <li><a href="../projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+            <li><a href="../blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+            <li><a href="../cv.html"><h3>CV</h3><p>Downloadable résumé</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>AI Security Gateway</h2>
+              <p>OpenAI-compatible middleware between applications and any LLM provider. MSc thesis deposited, pending defense.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2026-07-01">July 2026</time>
+              <a href="../about.html" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="" /></a>
+            </div>
+          </header>
+
+          <span class="image featured">
+            <img src="../images/gateway/playground-chat.png" alt="Playground chat routed through the gateway" />
+          </span>
+
+          <p>
+            Point an existing OpenAI-compatible client at the gateway Base URL. Every request goes through a
+            defense-in-depth pipeline before it reaches OpenAI, Anthropic, or a local Ollama model via LiteLLM.
+            No SDK, no client rewrite — security is toggled per request with headers.
+          </p>
+
+          <h3>Pipeline</h3>
+          <div class="table-wrapper">
+            <table class="alt">
+              <thead>
+                <tr><th>Phase</th><th>What happens</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1. Threat (inbound)</td><td>Sanitisation → length limits → OWASP-style regex → LLM-as-judge ∥ DistilBERT (parallel)</td></tr>
+                <tr><td>2. DLP (inbound)</td><td>Bilingual spaCy NER + regex (email, IBAN, phone, person, card, DNI). Reversible tokens.</td></tr>
+                <tr><td>3. Router</td><td>LiteLLM dispatches to the requested model.</td></tr>
+                <tr><td>4. Outbound</td><td>Tokens restored; outbound DLP can redact leaked secrets / honeytokens.</td></tr>
+                <tr><td>5. Observability</td><td>Latency by phase, block reason, estimated cost — async to SQLite.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <figure class="shot">
+            <img src="../images/gateway/playground-security-config.png" alt="Per-conversation security controls" />
+            <figcaption>Playground: enable or disable Threat, DLP and outbound DLP per request; pick the L4 model and NER entities.</figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="../images/gateway/playground-preconfigured-attack.png" alt="Preconfigured attack cases" />
+            <figcaption>Built-in cases document the layer they target and the expected outcome before you run them.</figcaption>
+          </figure>
+
+          <h3>Evaluation</h3>
+          <p>
+            The dashboard runs the case battery without controls vs. a protected profile. Headline result:
+            <strong>17/17 PASS</strong> on the protected profile. Unit tests: ~175 pytest.
+          </p>
+
+          <figure class="shot">
+            <img src="../images/gateway/evaluation-summary.png" alt="Evaluation KPI summary" />
+            <figcaption>Pass/fail counts, success rate and per-category breakdown.</figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="../images/gateway/evaluation-detail-by-case.png" alt="Case-by-case evaluation detail" />
+            <figcaption>Layer hit, HTTP status and latency without vs. with controls.</figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="../images/gateway/metrics-summary.png" alt="Operational metrics summary" />
+            <figcaption>Operational view: request volume, latency, defensive interventions.</figcaption>
+          </figure>
+
+          <h3>Stack</h3>
+          <p>
+            FastAPI · Pydantic v2 · LiteLLM · spaCy (EN/ES) · Hugging Face Transformers + PyTorch (DistilBERT) ·
+            Streamlit · SQLite · Docker.
+          </p>
+
+          <h3>Honest limits (MVP)</h3>
+          <ul>
+            <li>No enterprise authentication or authorization in front of the gateway.</li>
+            <li>SQLite is not a SIEM.</li>
+            <li>Regex plus a classifier do not cover every jailbreak.</li>
+          </ul>
+
+          <h3>Write-ups</h3>
+          <ul>
+            <li><a href="../blog/openai-compatible-gateway.html">Why the client should only change a Base URL</a></li>
+            <li><a href="../blog/evaluating-llm-defenses.html">You cannot ship an LLM proxy without evals</a></li>
+          </ul>
+
+          <ul class="actions special">
+            <li><a href="https://github.com/r4fik1/ai-security-gateway" class="button" target="_blank" rel="noopener">View code on GitHub</a></li>
+            <li><a href="../projects.html" class="button">← Projects</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>DevSecOps &amp; AI Security · Swisscom</p>
+          </header>
+        </section>
+
+        <section class="blurb">
+          <h2>More work</h2>
+          <ul class="actions stacked">
+            <li><a href="../blog/openai-compatible-gateway.html" class="button fit">Thesis note: Base URL</a></li>
+            <li><a href="../blog/evaluating-llm-defenses.html" class="button fit">Thesis note: evals</a></li>
+            <li><a href="vault-key-ceremony.html" class="button fit">Vault Key Ceremony CLI</a></li>
+            <li><a href="security-transparency.html" class="button fit">Security Transparency</a></li>
+            <li><a href="../projects.html" class="button fit">← All projects</a></li>
+          </ul>
+        </section>
+
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+          </ul>
+          <p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

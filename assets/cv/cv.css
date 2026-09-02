@@ -1,0 +1,120 @@
+/* Swiss A4 CV — print from Chrome/Safari: File > Print > Save as PDF, A4, default margins off / minimum */
+:root {
+  --ink: #1a1a1a;
+  --muted: #444;
+  --rule: #c8c8c8;
+  --accent: #1f4e79;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font: 10.2pt/1.35 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 12mm 14mm;
+}
+header {
+  display: grid;
+  grid-template-columns: 1fr 28mm;
+  gap: 10px;
+  align-items: start;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: 18pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0 0 2px;
+  color: var(--accent);
+}
+.role {
+  font-size: 11pt;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.meta, .meta a {
+  color: var(--muted);
+  font-size: 8.6pt;
+  text-decoration: none;
+  line-height: 1.45;
+}
+.photo {
+  width: 26mm;
+  height: 32mm;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  background: #f3f3f3;
+}
+.photo-ph {
+  width: 26mm;
+  height: 32mm;
+  border: 1px dashed var(--rule);
+  color: #999;
+  font-size: 7.5pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px;
+}
+h2 {
+  font-size: 9.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  margin: 11px 0 6px;
+  padding-bottom: 2px;
+}
+h3 {
+  font-size: 10.2pt;
+  margin: 0;
+}
+.job {
+  margin: 0 0 8px;
+}
+.job-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.org { font-weight: 600; }
+.dates { white-space: nowrap; color: var(--muted); font-size: 9pt; }
+.loc { color: var(--muted); font-size: 9pt; margin: 0 0 3px; }
+ul {
+  margin: 2px 0 0;
+  padding-left: 16px;
+}
+li { margin: 0 0 2px; }
+p { margin: 0 0 6px; }
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.skills p { margin: 0 0 3px; }
+.skills strong { color: var(--accent); font-weight: 600; }
+.muted { color: var(--muted); }
+.site-bar {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 10px 14mm;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 10pt/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.site-bar a { color: var(--accent); }
+@media print {
+  @page { size: A4; margin: 10mm; }
+  .page { padding: 0; max-width: none; }
+  a { color: var(--ink); }
+  .site-bar { display: none; }
+}

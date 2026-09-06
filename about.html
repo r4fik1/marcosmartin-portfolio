@@ -8,7 +8,7 @@
     <title>About – Marcos Martín</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="DevSecOps and AI Security engineer at Swisscom. CAISP, MSc Cybersecurity, MSc AI thesis deposited. Vault, SSDLC, security transparency." />
+    <meta name="description" content="DevSecOps engineer at Swisscom, relocating to Switzerland. CAISP. MSc Cybersecurity. MSc AI thesis deposited." />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <style>
@@ -59,101 +59,85 @@
           <header>
             <div class="title">
               <h2>About</h2>
-              <p>DevSecOps Engineer &amp; Scrum Master @ Swisscom · CAISP · MSc Cybersecurity · MSc AI (thesis deposited)</p>
+              <p>DevSecOps Engineer @ Swisscom · Rotterdam · Relocating to Switzerland</p>
             </div>
           </header>
 
-          <ul class="actions">
-            <li>
-              <a href="assets/cv/MarcosMartin_CV.pdf" class="button large icon solid fa-download" download="MarcosMartin_CV.pdf">Download CV (PDF)</a>
-            </li>
-          </ul>
-
           <h2>Profile</h2>
           <p>
-            I turn security process into platforms. At <strong>Swisscom</strong> I work as a DevSecOps engineer and Scrum Master
-            on two problems that do not scale with tickets: <strong>secrets at high assurance</strong> (HashiCorp Vault, including
-            key-ceremony tooling) and <strong>security transparency</strong> (from team-level metrics to scheduled data products
-            for leadership). Before that I was an Application Security engineer in insurance (SAST/DAST, vulnerability management,
-            secure SDLC).
+            DevSecOps engineer who turns security process into platforms: CI/CD guardrails for
+            <strong>1000+ developers</strong>, policy-as-code, SBOM-backed vulnerability management, and
+            HashiCorp Vault at high assurance. Application Security background in insurance.
+            MSc Cybersecurity (completed); MSc Artificial Intelligence thesis deposited, pending defense.
+            CISSP in preparation. Spanish EU/EFTA citizen — eligible for Swiss Permit B.
           </p>
           <p>
-            I have deposited an MSc thesis in Artificial Intelligence: an OpenAI-compatible
-            <a href="projects/ai-security-gateway.html">AI Security Gateway</a> (prompt threat detection, DLP, routing).
-            I hold <strong>CAISP</strong> and hands-on DevSecOps certifications (API, containers, cloud native, threat modeling).
-            CISSP is in preparation.
+            Thesis: an OpenAI-compatible <a href="projects/ai-security-gateway.html">AI Security Gateway</a>
+            (inbound threat detection, reversible DLP, routing). Evaluation <strong>17/17 PASS</strong>; ~175 pytest.
+            <a href="https://github.com/r4fik1/ai-security-gateway" target="_blank" rel="noopener">github.com/r4fik1/ai-security-gateway</a>.
           </p>
 
           <h2>Experience</h2>
           <ul>
             <li>
-              <strong>Swisscom</strong> – DevSecOps Engineer &amp; Scrum Master (Rotterdam) · <em>May 2025 – Present</em><br/>
-              Secrets management (Vault on Kubernetes/Terraform, dynamic secrets, least privilege) and security-transparency
-              products in Python so leadership sees training, assessments and vulnerability posture.
+              <strong>Swisscom</strong> – DevSecOps Engineer &amp; Scrum Master (Rotterdam) · <em>10.2022 – Present</em>
+              <ul>
+                <li>SAST, DAST, SCA, secrets detection and IaC scanning (Trivy, Checkov) in GitLab CI/CD for 1000+ developers; findings into DefectDojo / CycloneDX / Dependency-Track.</li>
+                <li>Policy-as-code with OPA; Kubernetes hardening (RBAC, PSS, NetworkPolicies, Falco).</li>
+                <li>Enterprise HashiCorp Vault (Kubernetes + Terraform, dynamic secrets) and a Go CLI for rekey / generate-root ceremonies (GPG, YubiKey, coverage ~95%).</li>
+                <li>Security-transparency data products: Streamlit → scheduled ETL → BI (Parquet, S3, Glue, Athena; fail-closed; OIDC).</li>
+                <li>LLM-assisted threat-modeling pipeline (diagrams → STRIDE + human review). Scrum Master for the security-platform team.</li>
+              </ul>
             </li>
             <li>
-              <strong>Swisscom</strong> – DevSecOps Engineer &amp; Scrum Master (Rotterdam) · <em>Oct 2022 – May 2025</em><br/>
-              SAST, DAST, SCA, secrets detection and IaC scanning in GitLab CI/CD used by <strong>1000+ developers</strong>;
-              policy-as-code with OPA; SBOM / CycloneDX into a system of record. Servant-leader Scrum Master.
-            </li>
-            <li>
-              <strong>Aegon Insurance</strong> – Application Security Engineer (Madrid) · <em>Jul 2021 – Sep 2022</em><br/>
+              <strong>Aegon Insurance</strong> – Application Security Engineer (Madrid) · <em>07.2021 – 09.2022</em><br/>
               Secure code review, SAST/DAST (Kiuwan), vulnerability and pentest remediation, security requirements with architecture and business.
             </li>
             <li>
-              <strong>Between Technology</strong> – Cyber Security Analyst (Barcelona) · <em>Jan 2021 – Jul 2021</em><br/>
-              Vulnerability testing of applications and infrastructure (C++, .NET, PHP); data-protection and encryption controls.
+              <strong>Between Technology</strong> – Cyber Security Analyst (Barcelona) · <em>01.2021 – 07.2021</em><br/>
+              Vulnerability testing of applications and infrastructure (C++, .NET, PHP); data protection and encryption; risk reports.
             </li>
             <li>
-              <strong>Giesecke+Devrient Mobile Security</strong> – Test Manager (Barcelona) · <em>Feb 2019 – Jan 2021</em><br/>
-              Test design and automation (C++) in a mobile-security product context.
+              <strong>Giesecke+Devrient Mobile Security</strong> – Test Manager (Barcelona) · <em>02.2019 – 01.2021</em><br/>
+              Test design and C++ automation in a mobile-security product organisation.
             </li>
           </ul>
 
           <h2>Education</h2>
           <ul>
             <li>
-              <strong>Master’s Degree in Artificial Intelligence</strong> (Data Engineering track) – UNIR, Spain (2025–present)<br/>
+              <strong>Master’s Degree in Artificial Intelligence</strong> – UNIR (2025–present)<br/>
               <em>Thesis deposited, pending defense:</em> OpenAI-compatible AI Security Gateway.
             </li>
-            <li><strong>Postgraduate Certificate in Data Engineering</strong> – UNIR, Spain (2025–present)</li>
-            <li>
-              <strong>Master’s Degree in Cybersecurity</strong> – UNIR, Spain (2019–2021)<br/>
-              <em>Thesis: wireless-service characteristics on routers (Telefónica / ElevenPaths collaboration)</em>
-            </li>
-            <li>
-              <strong>Bachelor’s in Telecommunications Engineering</strong> (Electronic Systems) – University of Valladolid (2013–2019)<br/>
-              <em>Thesis: remote monitoring of oxygen levels in a wine production plant</em>
-            </li>
+            <li><strong>Postgraduate Certificate in Data Engineering</strong> – UNIR (2025–present)</li>
+            <li><strong>Master’s Degree in Cybersecurity</strong> – UNIR (2019–2021), completed</li>
+            <li><strong>Bachelor’s in Telecommunications Engineering</strong> (Electronic Systems) – University of Valladolid (2013–2019)</li>
           </ul>
 
           <h2>Certifications</h2>
           <ul>
-            <li><strong>CAISP</strong> — Certified AI Security Professional (Practical DevSecOps)</li>
-            <li>Swisscom Security Champion 2025/26</li>
+            <li><strong>CAISP</strong> — Certified AI Security Professional</li>
             <li>CTMP — Certified Threat Modeling Professional</li>
             <li>CASP — Certified API Security Professional</li>
             <li>CCNSE — Certified Cloud Native Security Expert</li>
             <li>CCSE — Certified Container Security Expert</li>
             <li>CDP — Certified DevSecOps Professional</li>
             <li>Internal Auditor ISO 27001:2013 (TÜV Rheinland), 2021 — expired 06.2024</li>
-            <li>Python Programming Course – UNIR</li>
           </ul>
           <p><em>CISSP — in preparation (not certified).</em></p>
 
           <h2>Skills</h2>
           <ul class="columns">
-            <li><strong>AI security:</strong> OWASP LLM Top 10 · prompt injection · guardrails · DLP · STRIDE · LLM-as-judge · evals</li>
-            <li><strong>AppSec / SSDLC:</strong> SAST · DAST · SCA · SBOM · Semgrep · Trivy · ZAP · DefectDojo · Dependency-Track</li>
-            <li><strong>Platform:</strong> Kubernetes · Terraform · OPA · HashiCorp Vault · GitLab CI · Docker</li>
-            <li><strong>Languages &amp; data:</strong> Python · Go · Bash · pandas · Parquet</li>
+            <li><strong>CI/CD &amp; cloud native:</strong> GitLab CI · Jenkins · Kubernetes · Docker · Terraform · OPA/Styra · Checkov · Falco · Vault Enterprise</li>
+            <li><strong>AppSec / SSDLC:</strong> Semgrep · Trivy · ZAP · Gitleaks · Dependency-Track · DefectDojo · CycloneDX · STRIDE · OWASP</li>
+            <li><strong>Engineering:</strong> Python · Go · Bash · C++ · Streamlit · pandas · Parquet · S3/Athena</li>
           </ul>
 
           <h2>Languages</h2>
           <ul>
             <li>Spanish — C2 (native)</li>
             <li>English — C1</li>
-            <li>German — A2 (in progress toward B1)</li>
+            <li>German — A1 (in progress toward B1)</li>
           </ul>
 
           <h2>Selected recognition</h2>
@@ -165,6 +149,7 @@
 
           <h2>Contact</h2>
           <p>
+            Rotterdam, NL · Relocating to Switzerland<br/>
             <a href="mailto:marcosmartingutierrez89@gmail.com">marcosmartingutierrez89@gmail.com</a><br/>
             <a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" target="_blank" rel="noopener">linkedin.com/in/marcos-martin-gutierrez</a><br/>
             <a href="https://github.com/r4fik1" target="_blank" rel="noopener">github.com/r4fik1</a>
@@ -177,14 +162,15 @@
           <a href="index.html" class="logo"><img src="images/me.jpeg" alt="Marcos Martín" /></a>
           <header>
             <h2>Marcos Martín</h2>
-            <p>DevSecOps &amp; AI Security · Swisscom</p>
+            <p>DevSecOps Engineer · Swisscom<br/>Relocating to Switzerland</p>
           </header>
         </section>
 
         <section class="blurb">
-          <h2>Quick links</h2>
+          <h2>Résumé</h2>
+          <p>Two-page A4 PDF (English), same facts as this page.</p>
           <ul class="actions stacked">
-            <li><a href="assets/cv/MarcosMartin_CV.pdf" class="button fit icon solid fa-download" download="MarcosMartin_CV.pdf">Download CV (PDF)</a></li>
+            <li><a href="assets/cv/Marcos_Martin_CV_Switzerland.pdf" class="button fit icon solid fa-download" download="Marcos_Martin_CV_Switzerland.pdf">Download PDF</a></li>
             <li><a href="projects.html" class="button fit">Selected projects</a></li>
             <li><a href="https://github.com/r4fik1/ai-security-gateway" class="button fit" target="_blank" rel="noopener">AI Security Gateway</a></li>
           </ul>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Threat-model the LLM feature, not the model card – Marcos Martín</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="STRIDE for LLM-enabled features: treat the model as an untrusted component, and keep a human gate on the steps that must not be casual." />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <style>
+      figure.shot { margin: 1.5rem 0; }
+      figure.shot img { width: 100%; border: 1px solid #ddd; }
+      figure.shot figcaption { font-size: 0.85em; color: #666; margin-top: 0.4rem; }
+      table.alt { margin: 1.5rem 0; }
+    </style>
+  </head>
+  <body class="single is-preload">
+    <div id="wrapper">
+
+      <header id="header">
+        <h1><a href="../index.html">Marcos Martín</a></h1>
+        <nav class="links">
+          <ul>
+            <li><a href="../projects.html">Projects</a></li>
+            <li class="active"><a href="../blog.html">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+          </ul>
+        </nav>
+        <nav class="main">
+          <ul><li class="menu"><a class="fa-bars" href="#menu">Menu</a></li></ul>
+        </nav>
+      </header>
+
+      <section id="menu">
+        <section>
+          <ul class="links">
+            <li><a href="../index.html"><h3>Home</h3><p>Featured work</p></a></li>
+            <li><a href="../projects.html"><h3>Projects</h3><p>Gateway, Vault, transparency</p></a></li>
+            <li><a href="../about.html"><h3>About</h3><p>Profile &amp; experience</p></a></li>
+            <li><a href="../blog.html"><h3>Blog</h3><p>Notes on AI security</p></a></li>
+          </ul>
+        </section>
+      </section>
+
+      <div id="main">
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>Threat-model the LLM feature, not the model card</h2>
+              <p>STRIDE still works when a language model sits in the middle — if you treat the model as an untrusted component.</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="2026-09-06">September 2026</time>
+              <a href="../about.html" class="author"><span class="name">Marcos Martín</span><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+            </div>
+          </header>
+
+          <span class="image featured">
+            <img src="../images/gateway/information-defense-layers.png" alt="Defense layers in an LLM request pipeline" />
+          </span>
+
+          <p>
+            Teams shipping a chatbot often start from the vendor’s model card: training data, eval scores, “we do not
+            store prompts.” That is useful procurement language. It is not a threat model of <em>your</em> feature.
+            The feature is: a user (or another service) sends text, you retrieve context, you call a model, you maybe
+            invoke a tool, you write something back into a ticket, a wiki, or a database.
+          </p>
+          <p>
+            I threat-model that the same way I threat-model any other service: <strong>STRIDE on the data flow</strong>,
+            then decide which steps may be automated and which need a human gate. CTMP for the method; CAISP for the
+            LLM-specific failure modes (prompt injection, RAG poisoning, tool abuse). The model is a component you do
+            not fully control — closer to an untrusted parser than to a trusted employee.
+          </p>
+
+          <h3>A small STRIDE map</h3>
+          <div class="table-wrapper">
+            <table class="alt">
+              <thead>
+                <tr><th>STRIDE</th><th>Where it shows up in an LLM feature</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Spoofing</td><td>Acting as another user, another system prompt, or another tool’s identity.</td></tr>
+                <tr><td>Tampering</td><td>Retrieved documents, conversation history, or tool arguments the model did not intend.</td></tr>
+                <tr><td>Repudiation</td><td>No durable log of prompt, retrieval set, model, and tool calls.</td></tr>
+                <tr><td>Information disclosure</td><td>PII and secrets in prompts or in what the model echoes outbound.</td></tr>
+                <tr><td>Denial of service</td><td>Unbounded context, recursive tool loops, cost blow-ups.</td></tr>
+                <tr><td>Elevation of privilege</td><td>A tool allowlist that is really “the model may call anything the API key can.”</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            None of that requires a new framework. It requires a diagram (who talks to whom), a list of trust
+            boundaries, and mitigations you can actually operate: authn in front of the proxy, DLP on the wire,
+            allowlists for tools, evals in CI, logs you can query.
+          </p>
+
+          <h3>The human gate is the same idea as a Vault ceremony</h3>
+          <p>
+            At Swisscom I automated a lot of secrets operations. I did not automate the last step of a rekey.
+            PIN, passphrase, quit — those stay human. LLM features have the same shape. Drafting a STRIDE list from a
+            diagram is a good job for a model. <strong>Accepting a mitigation as done</strong> is not. The pipeline I
+            built for threat modeling (diagrams in, STRIDE threats and mitigations out) is only useful if a person
+            signs the output.
+          </p>
+          <p>
+            Policy-as-code is how you scale the rest: the rule that “this tool is not callable from this app” should
+            run on every request, not in a reviewer’s head. Same habit as OPA on a merge request, applied to tool
+            calls instead of <code>:latest</code> tags.
+          </p>
+
+          <h3>What I am not claiming</h3>
+          <p>
+            A STRIDE session is not a red-team engagement. Regex plus a classifier will not catch every injection.
+            A model card is not an SBOM. The useful claim is smaller: if the LLM is just another component in the
+            SDLC, it gets the same treatment as the rest of the factory — a diagram, a control on the wire, a test
+            you can rerun, and a human on the few steps that must never be casual.
+          </p>
+          <p>
+            Related: <a href="openai-compatible-gateway.html">security as a Base URL</a> ·
+            <a href="evaluating-llm-defenses.html">evals instead of a chat screenshot</a>.
+          </p>
+
+          <ul class="actions special">
+            <li><a href="evaluating-llm-defenses.html" class="button">Evals</a></li>
+            <li><a href="../blog.html" class="button">← Blog</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <section id="sidebar">
+        <section id="intro">
+          <a href="../index.html" class="logo"><img src="../images/me.jpeg" alt="Marcos Martín" /></a>
+          <header>
+            <h2>Marcos Martín</h2>
+            <p>DevSecOps Engineer · Swisscom</p>
+          </header>
+        </section>
+        <section class="blurb">
+          <h2>Also</h2>
+          <ul class="actions stacked">
+            <li><a href="evaluating-llm-defenses.html" class="button fit">Measuring LLM defenses</a></li>
+            <li><a href="openai-compatible-gateway.html" class="button fit">Why a Base URL</a></li>
+            <li><a href="../blog.html" class="button fit">← Blog</a></li>
+          </ul>
+        </section>
+        <section id="footer">
+          <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/marcos-martin-gutierrez/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://github.com/r4fik1" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="mailto:marcosmartingutierrez89@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+          </ul>
+          <p class="copyright">&copy; 2026 Marcos Martín. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </section>
+      </section>
+    </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>
